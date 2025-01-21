@@ -1,0 +1,65 @@
+@model IEnumerable<DatabaseWorker.Models.DeliveryOrder>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Список заказов</h1>
+
+<p>
+    <a asp-action="Create">Создать новый заказ</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SenderCity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SenderAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecipientCity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RecipientAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CargoWeight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CargoPickupDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SenderCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SenderAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RecipientCity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RecipientAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CargoWeight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CargoPickupDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Информация о заказе</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
