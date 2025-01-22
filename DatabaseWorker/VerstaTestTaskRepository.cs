@@ -17,6 +17,7 @@ namespace DatabaseWorker
                 .Include(x => x.DeletedDeliveryOrderInfo)
                 .Where(c => c.Id != c.DeletedDeliveryOrderInfo.DeliveryOrderId)
                 .ToListAsync();
+
             if (deliveryOrderForm == null)
             {
                 throw new ArgumentNullException(nameof(deliveryOrderForm));
@@ -94,15 +95,9 @@ namespace DatabaseWorker
 
         public async Task<int> GetIdForNextDeliveryOrder()
         {
-            try
-            {
-                int maxId = await dbContext.DeliveryOrder.MaxAsync(x => x.Id);
-                return maxId + 1;
-            }
-            catch (InvalidOperationException ex) 
-            {
-                return 1;
-            }
+            var maxId = await dbContext.DeliveryOrder.MaxAsync(x => (int?)x.Id) ?? 0;
+            return ++maxId;
         }
     }
 }
+    
